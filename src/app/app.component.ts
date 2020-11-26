@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ftp-client';
+
+  columnsAmount = 4;
+  rowHeightPercents = 10;
+
+  headerColAmount = this.columnsAmount;
+  headerRowAmount = 1;
+
+  contentColAmount = 4;
+  contentRowAmount = 9;
+
+
 }

@@ -1,0 +1,16 @@
+#app_header {
+  background-color: grey;
+}
+
+app-header{
+  width: 100%;
+}
+
+#app_sidepanel {
+  background-color: cadetblue;
+}
+
+#app_content {
+  background-color: coral;
+}
+

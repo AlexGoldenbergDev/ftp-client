@@ -1,0 +1,11 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.app-header-call-sidepanel-button-icon {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+*.rotated {
+  transform: rotate(90deg);
+}
