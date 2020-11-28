@@ -1,5 +1,3 @@
-<mat-drawer [(opened)]="sidePanelState"  class="example-sidenav" mode="side">
   <mat-nav-list>
-    <app-sidepanel-button *ngFor="let button of buttons" [text]="button.text" [iconName]='button.icon'></app-sidepanel-button>
+    <app-sidepanel-button *ngFor="let button of buttons" [text]="button.text" [iconName]='button.icon' [routerLink]="button.routerLink"></app-sidepanel-button>
   </mat-nav-list>
-</mat-drawer>

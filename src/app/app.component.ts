@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {UiStateService} from './ui-state.service';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +9,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'ftp-client';
 
-  columnsAmount = 4;
-  rowHeightPercents = 10;
+  sidePanelState = false;
 
-  headerColAmount = this.columnsAmount;
-  headerRowAmount = 1;
-
-  contentColAmount = 4;
-  contentRowAmount = 9;
-
-
+  constructor(private uiService: UiStateService) {
+    uiService.sidePanelToggleStateChange$.subscribe((state) => this.sidePanelState = state);
+  }
 }

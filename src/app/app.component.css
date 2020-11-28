@@ -1,16 +1,7 @@
-#app_header {
-  background-color: grey;
-}
-
-app-header{
+#body-drawer-container{
   width: 100%;
+  height:100vh;
 }
 
-#app_sidepanel {
-  background-color: cadetblue;
-}
 
-#app_content {
-  background-color: coral;
-}
 

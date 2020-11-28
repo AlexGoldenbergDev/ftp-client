@@ -13,6 +13,9 @@ export class SidePanelButtonComponent implements OnInit {
   @Input()
   iconName!: string;
 
+  @Input()
+  routerLink!: string;
+
   constructor() { }
 
   ngOnInit(): void {

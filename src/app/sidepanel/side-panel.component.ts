@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { UiStateService } from '../ui-state.service';
+import {Component, OnInit} from '@angular/core';
+import {UiStateService} from '../ui-state.service';
+import {IconButtonInfo} from '../icon-button.info';
 
-class SidePanelButton {
+class SidePanelButton implements IconButtonInfo{
   text!: string;
   icon!: string;
+  routerLink!: string;
 }
 
 
@@ -18,16 +20,20 @@ export class SidePanelComponent implements OnInit {
   buttons: SidePanelButton[] = [
     {
       text: 'Dashboard',
-      icon: 'dashboard'
+      icon: 'dashboard',
+      routerLink: 'dashboard'
+
     },
     {
       text: 'Explorer',
-      icon: 'explore'
+      icon: 'explore',
+      routerLink: 'explorer'
     }
     ,
     {
       text: 'Settings',
-      icon: 'settings'
+      icon: 'settings',
+      routerLink: 'settings'
     }
   ];
 
