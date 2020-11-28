@@ -1,0 +1,5 @@
+<div id="explorer-filter-container" *ngFor="let node of location;
+      index as nodeIndex;">
+  <mat-icon *ngIf="nodeIndex != 0">arrow_right</mat-icon>
+  <button mat-button [attr.aria-label]="node">{{node}}</button>
+</div>

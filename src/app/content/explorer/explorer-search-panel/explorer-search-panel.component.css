@@ -1,0 +1,25 @@
+#explorer-search-container {
+  width: 100%;
+  padding-bottom: 0;
+  padding-top: 1.20%
+}
+
+mat-form-field {
+  margin-left: 2%
+}
+
+#explorer-search {
+  font-size: 1em;
+}
+
+#explorer-search-icon {
+  vertical-align: bottom;
+}
+
+mat-radio-button {
+  margin-right: 1%;
+}
+
+mat-icon {
+  vertical-align: top;
+}

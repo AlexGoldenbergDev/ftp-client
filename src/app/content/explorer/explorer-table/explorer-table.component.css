@@ -1,0 +1,36 @@
+table {
+  width: 100%;
+  height: auto;
+  padding-left: 1%;
+}
+
+table * button {
+  padding-left: 0;
+}
+
+#explorer-filter {
+  padding-left: 2%;
+  width: 50%;
+  height: 8%
+}
+
+* mat-row * {
+  height: 1% !important;
+}
+
+* mat-header-row* {
+  height: 1% !important;
+}
+
+.mat-header-cell {
+  font-size: 1em;
+}
+
+.mat-cell {
+  font-size: 1em;
+}
+
+.app-explorer-file-name mat-icon{
+  font-size: 1.5em;
+  vertical-align: middle;
+}

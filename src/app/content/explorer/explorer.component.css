@@ -1,0 +1,16 @@
+
+mat-grid-tile * {
+  width: 100%;
+}
+
+app-explorer-nav {
+  padding: 0 2%
+}
+
+app-explorer-table {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
