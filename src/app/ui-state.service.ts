@@ -10,11 +10,19 @@ export class UiStateService {
 
   sidePanelToggleStateChange$ = this.sidePanelToggleState.asObservable();
 
+  private funcSidePanelToggleState = new Subject<boolean>();
+
+  funcSidePanelToggleStateChange$ = this.funcSidePanelToggleState.asObservable();
+
 
   constructor() { }
 
   changeSidePanelToggleState(state: boolean): void {
     this.sidePanelToggleState.next(state);
+  }
+
+  changeFuncSidePanelToggleState(state: boolean): void {
+    this.funcSidePanelToggleState.next(state);
   }
 
 }

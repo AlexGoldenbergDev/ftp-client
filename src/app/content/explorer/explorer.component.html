@@ -1,3 +1,5 @@
+<mat-drawer-container autosize style="width: 100%;
+  height:100vh">
 <mat-grid-list cols="1" rowHeight="2vh">
   <mat-grid-tile [colspan]='1' [rowspan]='3'>
     <app-explorer-control-panel></app-explorer-control-panel>
@@ -16,6 +18,11 @@
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]='1' [rowspan]='39.5'>
-    <app-explorer-table></app-explorer-table>
+      <app-explorer-table></app-explorer-table>
   </mat-grid-tile>
 </mat-grid-list>
+  <mat-drawer style="width: 20%" [(opened)]="funcSidePanelState" mode="side" position="end">
+    <app-func-side-panel></app-func-side-panel>
+  </mat-drawer>
+</mat-drawer-container>
+

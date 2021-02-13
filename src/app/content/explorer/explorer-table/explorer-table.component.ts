@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { FileService } from '../../../file.service';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {ExplorerNavNode} from '../explorer-nav/explorer-nav.node';
 
 export interface ExplorerFileRow {
   name: string;
@@ -11,30 +12,6 @@ export interface ExplorerFileRow {
   isSelected: boolean;
 }
 
-const ELEMENT_DATA: ExplorerFileRow[] = [
-
-  {name: 'folder1', size: 10079, owner: 'Alex', type: 'folder', isSelected: false},
-  {name: 'folder2', size: 40026, owner: 'Alex', type: 'folder', isSelected: false},
-  {name: 'textFile1', size: 6941, owner: 'Alex', type: 'text', isSelected: false},
-  {name: 'textFile2', size: 90122, owner: 'Alex', type: 'text', isSelected: false},
-  {name: 'folder3', size: 10811, owner: 'Alex', type: 'folder', isSelected: false},
-  {name: 'image1', size: 120107, owner: 'Alex', type: 'image', isSelected: false},
-  {name: 'image2', size: 140067, owner: 'Alex', type: 'image', isSelected: false},
-  {name: 'video1', size: 159994, owner: 'Alex', type: 'video', isSelected: false},
-  {name: 'file1', size: 189984, owner: 'Alex', type: 'file', isSelected: false},
-
-  {name: 'ывс', size: 10079, owner: 'Alex', type: 'folder', isSelected: false},
-  {name: 'הגדה', size: 40026, owner: 'Alex', type: 'folder', isSelected: false},
-  {name: 'dcds', size: 6941, owner: 'Alex', type: 'text', isSelected: false},
-  {name: 'vd', size: 90122, owner: 'Alex', type: 'text', isSelected: false},
-  {name: 'vdv', size: 10811, owner: 'Alex', type: 'folder', isSelected: false},
-  {name: 'vdsvsd', size: 120107, owner: 'Alex', type: 'image', isSelected: false},
-  {name: 'vdsvsd', size: 140067, owner: 'Alex', type: 'image', isSelected: false},
-  {name: 'vsdvs', size: 159994, owner: 'Alex', type: 'video', isSelected: false},
-  {name: 'muiiu', size: 189984, owner: 'Alex', type: 'file', isSelected: false},
-  {name: 'fipple2', size: 201797, owner: 'Alex',  type: 'file', isSelected: false}
-];
-
 
 @Component({
   selector: 'app-explorer-table',
@@ -43,18 +20,22 @@ const ELEMENT_DATA: ExplorerFileRow[] = [
 })
 export class ExplorerTableComponent implements OnInit, AfterViewInit {
 
+  location: ExplorerNavNode = new ExplorerNavNode('/', '/', undefined);
+
   displayedColumns: string[] = ['selection', 'name', 'type', 'owner', 'size'];
   displayedFooterColumns: string[] = ['name', 'size'];
 
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<ExplorerFileRow>();
 
   // @ts-ignore
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private fileService: FileService) { }
-
-  ngOnInit(): void {
+  constructor(private fileService: FileService) {
+    this.fileService.filesListExplorerListChange$.subscribe(files => this.dataSource = new MatTableDataSource(files));
+    this.fileService.fileExplorerLocationChange$.subscribe(location => this.location = location);
   }
+
+  ngOnInit(): void {}
 
 
   ngAfterViewInit(): void {
@@ -71,6 +52,15 @@ export class ExplorerTableComponent implements OnInit, AfterViewInit {
   }
 
   getTotalSize(): number {
-    return ELEMENT_DATA.map(file => file.size).reduce((acc, value) => acc + value, 0);
+    return this.dataSource.data.map(file => file.size).reduce((acc, value) => acc + value, 0);
+  }
+
+  changeLocationDown(file: ExplorerFileRow): void {
+    let node = this.location;
+    while (node.child) {
+      node = node.child;
+    }
+    node.child = new ExplorerNavNode(file.name, '/' + file.name, undefined);
+    this.fileService.changeExplorerLocation(this.location);
   }
 }

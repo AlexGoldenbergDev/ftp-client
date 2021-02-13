@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IconButtonInfo } from '../../../icon-button.info';
+import {UiStateService} from '../../../ui-state.service';
 
 
 
@@ -29,9 +30,16 @@ export class ExplorerControlPanelComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  private funcSidePanelState = false;
+
+  constructor(private uiService: UiStateService) {
+    this.uiService.funcSidePanelToggleStateChange$.subscribe(state => this.funcSidePanelState = state);
+  }
 
   ngOnInit(): void {
   }
 
+  openUpload(): void {
+    this.uiService.changeFuncSidePanelToggleState(!this.funcSidePanelState);
+  }
 }

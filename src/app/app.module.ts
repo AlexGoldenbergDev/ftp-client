@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,7 @@ import { MatCardModule   } from '@angular/material/card';
 import { MatRadioModule   } from '@angular/material/radio';
 import { MatTableModule   } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { MatCheckboxModule   } from '@angular/material/checkbox';
 import { HeaderComponent } from './header/header.component';
@@ -32,6 +34,8 @@ import { ExplorerControlPanelButtonComponent } from './content/explorer/explorer
 import { ExplorerSearchPanelComponent } from './content/explorer/explorer-search-panel/explorer-search-panel.component';
 import { ExplorerTableComponent } from './content/explorer/explorer-table/explorer-table.component';
 import { ExplorerNavComponent } from './content/explorer/explorer-nav/explorer-nav.component';
+import { FuncSidePanelComponent } from './func-side-panel/func-side-panel.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -47,11 +51,14 @@ import { ExplorerNavComponent } from './content/explorer/explorer-nav/explorer-n
     ExplorerControlPanelButtonComponent,
     ExplorerSearchPanelComponent,
     ExplorerTableComponent,
-    ExplorerNavComponent
+    ExplorerNavComponent,
+    FuncSidePanelComponent
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
         MatGridListModule,
         MatToolbarModule,
         MatIconModule,
@@ -63,8 +70,9 @@ import { ExplorerNavComponent } from './content/explorer/explorer-nav/explorer-n
         MatRadioModule,
         MatTableModule,
         MatCheckboxModule,
-        BrowserAnimationsModule,
-        MatSortModule
+        MatSortModule,
+        MatFormFieldModule,
+        FormsModule
     ],
   providers: [
     UiStateService

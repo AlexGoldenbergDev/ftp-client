@@ -9,17 +9,28 @@ import {FileService} from '../../../file.service';
 })
 export class ExplorerNavComponent implements OnInit {
 
-  location: Array<string> = ['/'];
+  location = new ExplorerNavNode('/', '/', undefined);
+  locationArray: Array<string> = ['/'];
 
   constructor(private fileService: FileService) {
-    this.fileService.fileExplorerLocationArrayChange$.subscribe(location => this.location = location);
-    this.fileService.changeExplorerLocation(
-      new ExplorerNavNode('rootNode', '',
-        new ExplorerNavNode('/', '/',
-          new ExplorerNavNode('home', '/home', undefined)))
-    );
+    this.fileService.fileExplorerLocationArrayChange$.subscribe(location => this.locationArray = location);
+    this.fileService.changeExplorerLocation(this.location);
   }
 
   ngOnInit(): void {
+  }
+
+  changeLocationDown(index: number): void {
+    let location = '';
+    let i = 0;
+    let node = this.location;
+    while (i < index) {
+      location = location.concat(node.link);
+      // @ts-ignore
+      node = node.child;
+      i++;
+    }
+    node.child = undefined;
+    this.fileService.changeExplorerLocation(this.location);
   }
 }
