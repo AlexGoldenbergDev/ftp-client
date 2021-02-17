@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { IconButtonInfo } from '../../../icon-button.info';
-import {UiStateService} from '../../../ui-state.service';
-
+import {Component, OnInit} from '@angular/core';
+import {IconButtonInfo} from '../../../icon-button.info';
+import {ExplorerUiStateService} from '../../../explorer-ui-state.service';
+import {FuncSidePanelMode} from '../../../func-side-panel/FuncSidePanelMode';
 
 
 @Component({
@@ -32,14 +32,22 @@ export class ExplorerControlPanelComponent implements OnInit {
 
   private funcSidePanelState = false;
 
-  constructor(private uiService: UiStateService) {
+  constructor(private uiService: ExplorerUiStateService) {
     this.uiService.funcSidePanelToggleStateChange$.subscribe(state => this.funcSidePanelState = state);
   }
 
   ngOnInit(): void {
   }
-
-  openUpload(): void {
-    this.uiService.changeFuncSidePanelToggleState(!this.funcSidePanelState);
+  toggleUpload(): void {
+    this.uiService.changeFuncSidePanelMode(FuncSidePanelMode.Upload, !this.funcSidePanelState);
   }
+
+  toggleCreateFolder(): void {
+    this.uiService.changeFuncSidePanelMode(FuncSidePanelMode.Create_Folder, !this.funcSidePanelState);
+  }
+
+  toggleDelete(): void {
+    this.uiService.changeFuncSidePanelMode(FuncSidePanelMode.Delete, !this.funcSidePanelState);
+  }
+
 }

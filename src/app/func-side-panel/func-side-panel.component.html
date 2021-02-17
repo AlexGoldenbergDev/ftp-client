@@ -1,5 +1,5 @@
-<mat-grid-list id="func-side-panel" cols="1" rowHeight="2vh">
 
+<mat-grid-list id="func-side-panel" cols="1" rowHeight="2vh">
 
   <mat-grid-tile [colspan]='1' [rowspan]='2'>
     <mat-grid-list cols="5" rowHeight="100%" style="width: 100%">
@@ -8,36 +8,20 @@
           <mat-icon>close</mat-icon>
         </button>
       </mat-grid-tile>
+      <mat-grid-tile [colspan]="4" [rowspan]="1">
+        <h2>{{getMode()}}</h2>
+      </mat-grid-tile>
     </mat-grid-list>
   </mat-grid-tile>
 
   <mat-grid-tile [colspan]='1' [rowspan]='1'>
-    <mat-divider></mat-divider>
+    <mat-divider style="width: 100%;"></mat-divider>
   </mat-grid-tile>
 
 
-  <mat-grid-tile [colspan]='1' [rowspan]='2'>
-    <input #fileInput type="file"  hidden="true" (change)="selectFiles($event)" readonly name="name"  multiple="multiple"/>
-
-    <button mat-button (click)="fileInput.click()">
-      Browse File
-    </button>
+  <mat-grid-tile id="func-panel-content-tile" [colspan]='1' [rowspan]='44'>
+    <app-func-side-panel-create-folder *ngIf="getMode() == FuncSidePanelMode.Create_Folder"></app-func-side-panel-create-folder>
+    <app-func-side-panel-upload *ngIf="getMode() == FuncSidePanelMode.Upload"></app-func-side-panel-upload>
+    <app-func-side-panel-delete *ngIf="getMode() == FuncSidePanelMode.Delete"></app-func-side-panel-delete>
   </mat-grid-tile>
-
-  <mat-grid-tile [colspan]='1' [rowspan]='2'>
-    <!-- Browse Button -->
-    <button mat-button [ngStyle]="{'display': isUploadButtonDisplayed ? 'inherit': 'none'}" (click)="startUpload()">
-      Upload Files
-    </button>
-  </mat-grid-tile>
-
-  <mat-grid-tile [colspan]='1' [rowspan]='40'>
-    <mat-list role="list" id="upload-files-list">
-      <mat-list-item *ngFor="let name of fileNames" role="listitem">{{name}}</mat-list-item>
-    </mat-list>
-  </mat-grid-tile>
-
-
-
-
 </mat-grid-list>

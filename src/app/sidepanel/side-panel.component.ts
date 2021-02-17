@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UiStateService} from '../ui-state.service';
+import {ExplorerUiStateService} from '../explorer-ui-state.service';
 import {IconButtonInfo} from '../icon-button.info';
 
 class SidePanelButton implements IconButtonInfo{
@@ -39,7 +39,7 @@ export class SidePanelComponent implements OnInit {
 
   sidePanelState = false;
 
-  constructor(private uiStateService: UiStateService) {
+  constructor(private uiStateService: ExplorerUiStateService) {
     this.uiStateService.sidePanelToggleStateChange$
       .subscribe((sidePanelState) => this.sidePanelState = sidePanelState);
   }

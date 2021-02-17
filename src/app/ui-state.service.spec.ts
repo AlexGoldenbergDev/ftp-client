@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UiStateService } from './ui-state.service';
+import { ExplorerUiStateService } from './explorer-ui-state.service';
 
 describe('UiStateService', () => {
-  let service: UiStateService;
+  let service: ExplorerUiStateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UiStateService);
+    service = TestBed.inject(ExplorerUiStateService);
   });
 
   it('should be created', () => {

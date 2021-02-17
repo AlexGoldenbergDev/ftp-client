@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {UiStateService} from '../ui-state.service';
+import {ExplorerUiStateService} from '../explorer-ui-state.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
   sidePanelState = false;
 
-  constructor(private uiStateService: UiStateService) {
+  constructor(private uiStateService: ExplorerUiStateService) {
     uiStateService.sidePanelToggleStateChange$
       .subscribe((sidePanelState) => this.sidePanelState = sidePanelState);
   }

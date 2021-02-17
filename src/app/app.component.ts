@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {UiStateService} from './ui-state.service';
+import {ExplorerUiStateService} from './explorer-ui-state.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ export class AppComponent {
 
   sidePanelState = false;
 
-  constructor(private uiService: UiStateService) {
+  constructor(private uiService: ExplorerUiStateService) {
     uiService.sidePanelToggleStateChange$.subscribe((state) => this.sidePanelState = state);
   }
 }

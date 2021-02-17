@@ -24,7 +24,7 @@ import { MatCheckboxModule   } from '@angular/material/checkbox';
 import { HeaderComponent } from './header/header.component';
 
 import { SidePanelComponent } from './sidepanel/side-panel.component';
-import { UiStateService } from './ui-state.service';
+import { ExplorerUiStateService } from './explorer-ui-state.service';
 import { SidePanelButtonComponent } from './sidepanel/sidepanel-button/sidepanel-button.component';
 import { ExplorerComponent } from './content/explorer/explorer.component';
 import { DashboardComponent } from './content/dashboard/dashboard.component';
@@ -36,6 +36,10 @@ import { ExplorerTableComponent } from './content/explorer/explorer-table/explor
 import { ExplorerNavComponent } from './content/explorer/explorer-nav/explorer-nav.component';
 import { FuncSidePanelComponent } from './func-side-panel/func-side-panel.component';
 import {FormsModule} from '@angular/forms';
+import { FuncSidePanelUploadComponent } from './func-side-panel/func-side-panel-upload/func-side-panel-upload.component';
+// tslint:disable-next-line:max-line-length
+import { FuncSidePanelCreateFolderComponent } from './func-side-panel/func-side-panel-create-folder/func-side-panel-create-folder.component';
+import { FuncSidePanelDeleteComponent } from './func-side-panel/func-side-panel-delete/func-side-panel-delete.component';
 
 
 @NgModule({
@@ -52,7 +56,10 @@ import {FormsModule} from '@angular/forms';
     ExplorerSearchPanelComponent,
     ExplorerTableComponent,
     ExplorerNavComponent,
-    FuncSidePanelComponent
+    FuncSidePanelComponent,
+    FuncSidePanelUploadComponent,
+    FuncSidePanelCreateFolderComponent,
+    FuncSidePanelDeleteComponent
   ],
     imports: [
         BrowserModule,
@@ -75,7 +82,7 @@ import {FormsModule} from '@angular/forms';
         FormsModule
     ],
   providers: [
-    UiStateService
+    ExplorerUiStateService
   ],
   bootstrap: [AppComponent]
 })

@@ -105,5 +105,17 @@ export class FileService {
     const params = new HttpParams().append('location', location);
     return this.http.get<ExplorerFileRow[]>('http://localhost:8080/explorer/files', {params});
   }
+
+  upload(): boolean {
+    return false;
+  }
+
+  createFolder(name: string): boolean {
+    return false;
+  }
+
+  delete(): boolean {
+    return false;
+  }
 }
 

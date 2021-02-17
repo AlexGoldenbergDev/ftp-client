@@ -1,22 +1,7 @@
-#uploadFile {
-  top: 0px;
-  left: 0px;
+#func-panel-content-tile * {
   width: 100%;
-  z-index: 9;
-  opacity: 0;
-  height: 100%;
-  cursor: pointer;
-  font-size: 12px;
-  position: absolute;
 }
 
-#upload-files-list {
-  align-self: baseline;
-  max-height: 100%;
-  overflow: auto;
-
-}
-#upload-files-list * {
-  font-size: 12px;
-
+h2 {
+  margin-right: 25%;
 }

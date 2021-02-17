@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {UiStateService} from '../../ui-state.service';
+import {ExplorerUiStateService} from '../../explorer-ui-state.service';
 
 @Component({
   selector: 'app-storage-explorer',
@@ -10,7 +10,7 @@ export class ExplorerComponent implements OnInit {
 
   funcSidePanelState = false;
 
-  constructor(private uiService: UiStateService) {
+  constructor(private uiService: ExplorerUiStateService) {
   }
 
   ngOnInit(): void {
