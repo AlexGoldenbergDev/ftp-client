@@ -18,11 +18,12 @@ import { MatCardModule   } from '@angular/material/card';
 import { MatRadioModule   } from '@angular/material/radio';
 import { MatTableModule   } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 import {MatFormFieldModule} from '@angular/material/form-field';
-
 import { MatCheckboxModule   } from '@angular/material/checkbox';
-import { HeaderComponent } from './header/header.component';
 
+import { HeaderComponent } from './header/header.component';
 import { SidePanelComponent } from './sidepanel/side-panel.component';
 import { ExplorerUiStateService } from './explorer-ui-state.service';
 import { SidePanelButtonComponent } from './sidepanel/sidepanel-button/sidepanel-button.component';
@@ -40,6 +41,7 @@ import { FuncSidePanelUploadComponent } from './func-side-panel/func-side-panel-
 // tslint:disable-next-line:max-line-length
 import { FuncSidePanelCreateFolderComponent } from './func-side-panel/func-side-panel-create-folder/func-side-panel-create-folder.component';
 import { FuncSidePanelDeleteComponent } from './func-side-panel/func-side-panel-delete/func-side-panel-delete.component';
+import {FuncSidePanelFileTicketComponent} from './func-side-panel/func-side-panel-file-ticket/func-side-panel-file-ticket.component';
 
 
 @NgModule({
@@ -59,7 +61,8 @@ import { FuncSidePanelDeleteComponent } from './func-side-panel/func-side-panel-
     FuncSidePanelComponent,
     FuncSidePanelUploadComponent,
     FuncSidePanelCreateFolderComponent,
-    FuncSidePanelDeleteComponent
+    FuncSidePanelDeleteComponent,
+    FuncSidePanelFileTicketComponent
   ],
     imports: [
         BrowserModule,
@@ -79,6 +82,7 @@ import { FuncSidePanelDeleteComponent } from './func-side-panel/func-side-panel-
         MatCheckboxModule,
         MatSortModule,
         MatFormFieldModule,
+        MatProgressBarModule,
         FormsModule
     ],
   providers: [

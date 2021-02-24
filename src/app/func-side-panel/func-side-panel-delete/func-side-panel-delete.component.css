@@ -1,0 +1,12 @@
+
+#delete-files-list {
+  width: 100%;
+  align-self: baseline;
+  max-height: 100%;
+  overflow: auto;
+
+}
+#delete-files-list * {
+  font-size: 12px;
+
+}

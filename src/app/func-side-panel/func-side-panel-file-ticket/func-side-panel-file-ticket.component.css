@@ -1,0 +1,25 @@
+.func-side-panel-file-card {
+  width: 94%;
+  height: 94%;
+  margin: 3% 3% 3% 3%;
+  padding: 1%;
+}
+
+mat-card-header mat-icon {
+  height: auto;
+  width: auto;
+}
+mat-card-content {
+  display: inline-block;
+  width: 84%;
+}
+
+mat-card-actions {
+  display: inline-block;
+  margin-left: 1%;
+  width: auto;
+}
+
+.mat-card-title {
+  font-size: 12px;
+}

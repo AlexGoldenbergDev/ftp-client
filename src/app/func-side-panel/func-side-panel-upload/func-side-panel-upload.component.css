@@ -1,0 +1,15 @@
+#upload-files-list {
+  width: 100%;
+  align-self: baseline;
+  min-height: 100%;
+  overflow: auto;
+
+}
+#upload-files-list * {
+  font-size: 12px;
+
+}
+
+app-func-side-panel-file-ticket {
+  padding: 2%;
+}

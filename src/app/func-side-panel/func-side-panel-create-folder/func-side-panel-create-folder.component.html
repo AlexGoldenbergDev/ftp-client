@@ -1,0 +1,21 @@
+
+<mat-grid-list  id="func-side-panel-create-folder"  cols="1" rowHeight="2vh" style="width: 100%">
+  <mat-grid-tile [colspan]='1' [rowspan]='5'>
+    <mat-form-field appearance="standard">
+      <mat-label>Name</mat-label>
+      <input #input matInput placeholder="Folder Name">
+      <mat-hint>Specify new folder name</mat-hint>
+    </mat-form-field>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]='1' [rowspan]='3'>
+    <!-- Browse Button -->
+    <button mat-button [disabled]="checkIfInputEmpty()" (click)="createFolder()">
+      Create
+    </button>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]='1' [rowspan]='38'>
+  </mat-grid-tile>
+
+</mat-grid-list>
