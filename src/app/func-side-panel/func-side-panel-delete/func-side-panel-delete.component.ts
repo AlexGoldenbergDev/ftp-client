@@ -15,6 +15,6 @@ export class FuncSidePanelDeleteComponent implements OnInit {
   }
 
   delete(): void {
-    this.fileService.delete();
+    // this.fileService.delete();
   }
 }

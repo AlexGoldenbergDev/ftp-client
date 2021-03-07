@@ -4,7 +4,7 @@ import { ExplorerNavNode } from './content/explorer/explorer-nav/explorer-nav.no
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {ExplorerFileRow} from './content/explorer/explorer-table/explorer-table.component';
 
-import * as AWS from 'aws-sdk';
+import {LocalStorageService} from './local-storage.service';
 
 interface FileTypeMapping {
   type: string;
@@ -15,10 +15,20 @@ interface FileTypeMapping {
   providedIn: 'root'
 })
 export class FileService {
+  private locationPath: string;
+  private address: string;
+  private port: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService) {
+    this.locationPath = '/';
     this.reflectLocationArrayOnLocationChange();
     this.reflectExplorerNavNodeOnLocationChange();
+
+    this.address = this.localStorageService.getServerAddress();
+    this.localStorageService.serverAddressChange$.subscribe(address => this.address = address);
+
+    this.port = this.localStorageService.getServerPort();
+    this.localStorageService.serverPortChange$.subscribe(port => this.port = port);
   }
 
   mapping: FileTypeMapping[] = [
@@ -63,15 +73,6 @@ export class FileService {
   }
 
 
-
-
-  initAws(): void {
-    AWS.config.region = 'eu-central-1'; // Region
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: 'eu-central-1:4d1dac49-a402-48bb-8018-45671c66a608',
-    });
-  }
-
   private reflectLocationArrayOnLocationChange(): void {
     this.fileExplorerLocationChange$.subscribe(location => {
       const names: Array<string> = [];
@@ -86,7 +87,8 @@ export class FileService {
 
   private reflectExplorerNavNodeOnLocationChange(): void {
     this.fileExplorerLocationChange$.subscribe(location => {
-      this.getFilesList(FileService.convertExplorerNavNodeToLink(location)).subscribe(files => this.filesListExplorerList.next(files));
+      this.locationPath = FileService.convertExplorerNavNodeToLink(location);
+      this.getFilesList().subscribe(files => this.filesListExplorerList.next(files));
     });
   }
 
@@ -101,21 +103,30 @@ export class FileService {
     this.fileExplorerLocation.next(location);
   }
 
-  getFilesList(location: string): Observable<ExplorerFileRow[]> {
-    const params = new HttpParams().append('location', location);
-    return this.http.get<ExplorerFileRow[]>('http://localhost:8080/explorer/files', {params});
+  getFilesList(): Observable<ExplorerFileRow[]> {
+    const params = new HttpParams().append('location', this.locationPath);
+    return this.http.get<ExplorerFileRow[]>( this.getServerAddress() + 'files', {params});
   }
 
-  upload(): boolean {
-    return false;
+  upload(file: File): Observable<ExplorerFileRow[]> {
+    const params = {location: this.locationPath, file};
+    return this.http.post<ExplorerFileRow[]>( this.getServerAddress() + 'upload', params);
   }
 
-  createFolder(name: string): boolean {
-    return false;
+  createFolder(name: string): Observable<ExplorerFileRow[]> {
+    const params = {location: this.locationPath, name};
+    return this.http.put<ExplorerFileRow[]>( this.getServerAddress() + 'folder', params);
   }
 
-  delete(): boolean {
-    return false;
+  delete(name: string): Observable<ExplorerFileRow[]> {
+    const params = new HttpParams()
+      .append('location', this.locationPath)
+      .append('name', name);
+    return this.http.delete<ExplorerFileRow[]>( this.getServerAddress() + 'delete', {params});
+  }
+
+  getServerAddress(): string {
+    return 'http://' + this.address + ':' + this.port + '/explorer/';
   }
 }
 

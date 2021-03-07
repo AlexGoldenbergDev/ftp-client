@@ -1,0 +1,32 @@
+table {
+  width: 100%;
+}
+
+tr.settings-detail-row {
+  height: 0;
+}
+
+tr.settings-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.settings-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.settings-row td {
+  border-bottom-width: 0;
+}
+
+.sub-settings {
+  overflow: hidden;
+  display: flex;
+}
+
+app-input-settings {
+  width: 100%;
+}
+
+
+
+

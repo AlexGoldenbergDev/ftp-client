@@ -42,6 +42,13 @@ import { FuncSidePanelUploadComponent } from './func-side-panel/func-side-panel-
 import { FuncSidePanelCreateFolderComponent } from './func-side-panel/func-side-panel-create-folder/func-side-panel-create-folder.component';
 import { FuncSidePanelDeleteComponent } from './func-side-panel/func-side-panel-delete/func-side-panel-delete.component';
 import {FuncSidePanelFileTicketComponent} from './func-side-panel/func-side-panel-file-ticket/func-side-panel-file-ticket.component';
+import {UserService} from './user.service';
+import { CookieService } from 'ngx-cookie-service';
+import {LocalStorageService} from './local-storage.service';
+import {MatTabsModule} from '@angular/material/tabs';
+import { ServerSettingsComponent } from './content/settings/server-settings/server-settings.component';
+import { InputSettingsComponent } from './content/settings/server-settings/server-general-settings/input-settings.component';
+import { UserSettingsComponent } from './content/settings/user-settings/user-settings.component';
 
 
 @NgModule({
@@ -62,7 +69,10 @@ import {FuncSidePanelFileTicketComponent} from './func-side-panel/func-side-pane
     FuncSidePanelUploadComponent,
     FuncSidePanelCreateFolderComponent,
     FuncSidePanelDeleteComponent,
-    FuncSidePanelFileTicketComponent
+    FuncSidePanelFileTicketComponent,
+    ServerSettingsComponent,
+    InputSettingsComponent,
+    UserSettingsComponent
   ],
     imports: [
         BrowserModule,
@@ -83,10 +93,14 @@ import {FuncSidePanelFileTicketComponent} from './func-side-panel/func-side-pane
         MatSortModule,
         MatFormFieldModule,
         MatProgressBarModule,
-        FormsModule
+        FormsModule,
+        MatTabsModule
     ],
   providers: [
-    ExplorerUiStateService
+    ExplorerUiStateService,
+    UserService,
+    CookieService,
+    LocalStorageService
   ],
   bootstrap: [AppComponent]
 })

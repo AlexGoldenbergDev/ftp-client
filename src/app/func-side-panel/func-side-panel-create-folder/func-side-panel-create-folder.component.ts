@@ -17,7 +17,7 @@ export class FuncSidePanelCreateFolderComponent implements OnInit {
   }
 
   createFolder(): boolean {
-    return this.fileService.createFolder(this.input.nativeElement.value);
+   return true; // return this.fileService.createFolder(this.input.nativeElement.value);
   }
 
   checkIfInputEmpty(): boolean {
