@@ -8,7 +8,7 @@
 
   <mat-grid-tile [colspan]='1' [rowspan]='42'>
     <mat-list role="list" id="delete-files-list">
-      <mat-list-item *ngFor="let name of fileNames" role="listitem">{{name}}</mat-list-item>
+      <mat-list-item *ngFor="let fileRow of filesToDelete" role="listitem">{{fileRow.name}}</mat-list-item>
     </mat-list>
   </mat-grid-tile>
 </mat-grid-list>

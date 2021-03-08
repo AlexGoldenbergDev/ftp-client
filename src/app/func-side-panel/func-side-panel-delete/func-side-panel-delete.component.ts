@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FileService} from '../../file.service';
+import {ExplorerFileRow} from '../../content/explorer/explorer-table/explorer-table.component';
 
 @Component({
   selector: 'app-func-side-panel-delete',
@@ -8,13 +9,17 @@ import {FileService} from '../../file.service';
 })
 export class FuncSidePanelDeleteComponent implements OnInit {
   fileNames = ['1', '2', '3', '4', '5'];
+  filesToDelete: ExplorerFileRow[] = [];
 
-  constructor(private fileService: FileService) { }
+  constructor(private fileService: FileService) {
+    this.fileService.selectedFilesListExplorerChange$.subscribe(selected => this.filesToDelete = selected);
+  }
 
   ngOnInit(): void {
+
   }
 
   delete(): void {
-    // this.fileService.delete();
+    this.filesToDelete.forEach(file => this.fileService.delete(file.name));
   }
 }

@@ -63,4 +63,14 @@ export class ExplorerTableComponent implements OnInit, AfterViewInit {
     node.child = new ExplorerNavNode(file.name, '/' + file.name, undefined);
     this.fileService.changeExplorerLocation(this.location);
   }
+
+  selectFile(element: ExplorerFileRow): void {
+    const selected = element.isSelected;
+    if (selected) {
+      this.fileService.selectFile(element);
+    }
+    else {
+      this.fileService.unselectFile(element);
+    }
+  }
 }

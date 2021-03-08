@@ -14,7 +14,7 @@
 
     <td mat-cell *matCellDef="let element">
       <section>
-        <mat-checkbox [checked]="element.isSelected //noinspection InvalidExpressionResultType"></mat-checkbox>
+        <mat-checkbox [checked]="element.isSelected" (change)="selectFile(element)"></mat-checkbox>
       </section>
     </td>
 

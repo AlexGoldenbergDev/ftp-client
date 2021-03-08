@@ -10,7 +10,10 @@ export class FuncSidePanelUploadComponent implements OnInit {
   @ViewChild('fileInput')
   fileInput!: ElementRef;
 
-  private files = [];
+  @ViewChild('tickets')
+  tickets!: ElementRef[];
+
+  files: File[] = [];
   fileNames = [];
   isUploadButtonDisabled = true;
 
@@ -21,20 +24,16 @@ export class FuncSidePanelUploadComponent implements OnInit {
 
   selectFiles(fileInputEvent: any): void {
     this.files = fileInputEvent.target.files;
-    this.fileNames = [];
 
-    for (const file of this.files) {
-      // @ts-ignore
-      this.fileNames.push(file.name);
-    }
-
-    if (this.fileNames.length > 0) {
+    if (this.files.length > 0) {
       this.isUploadButtonDisabled = false;
     }
   }
 
-  startUpload(): boolean {
-    return false;
+  startUpload(): void {
+    for (const ticket of this.tickets) {
+      ticket.nativeElement.upload();
+    }
   }
 
 }

@@ -16,8 +16,8 @@ export class FuncSidePanelCreateFolderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createFolder(): boolean {
-   return true; // return this.fileService.createFolder(this.input.nativeElement.value);
+  createFolder(): void {
+    this.fileService.createFolder(this.input.nativeElement.value);
   }
 
   checkIfInputEmpty(): boolean {
