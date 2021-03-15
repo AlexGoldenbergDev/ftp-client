@@ -115,7 +115,7 @@ export class FileService {
 
   getFilesList(): Observable<ExplorerFileRow[]> {
     const params = new HttpParams().append('location', this.locationPath);
-    return this.http.get<ExplorerFileRow[]>( this.getServerAddress() + 'files', {params});
+    return this.http.get<ExplorerFileRow[]>( this.getServerAddress() + 'files', {params, withCredentials: true});
   }
 
   upload(file: File): Observable<HttpEvent<ExplorerFileRow[]>>{

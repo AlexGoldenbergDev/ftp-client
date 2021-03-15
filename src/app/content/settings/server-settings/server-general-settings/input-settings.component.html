@@ -1,0 +1,28 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="Name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.settingName}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="Value">
+    <th mat-header-cell *matHeaderCellDef> Value </th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field>
+        <mat-label>{{element.label}}</mat-label>
+        <input  matInput [type]="element.inputType" [(ngModel)]="element.newValue">
+      </mat-form-field>
+    </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="Controls">
+    <th mat-header-cell *matHeaderCellDef> Controls </th>
+    <td mat-cell *matCellDef="let element">  <button mat-button (click)="element.triggerValueChange()">Commit</button></td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
