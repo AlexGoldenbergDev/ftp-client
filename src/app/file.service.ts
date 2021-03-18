@@ -164,7 +164,7 @@ export class FileService {
     });
   }
 
-  downlaod(): void {
+  download(): void {
     this.selection.selected.forEach(file => {
       const params = new HttpParams()
         .append('location', this.locationPath)

@@ -22,13 +22,7 @@ table * button {
   height: 1% !important;
 }
 
-.mat-header-cell {
-  font-size: 1em;
-}
 
-.mat-cell {
-  font-size: 1em;
-}
 
 .app-explorer-file-name mat-icon{
   font-size: 1.5em;

@@ -10,7 +10,7 @@ class SidePanelButton implements IconButtonInfo{
 
 
 @Component({
-  selector: 'app-sidepanel',
+  selector: 'app-side-panel',
   templateUrl: './side-panel.component.html',
   styleUrls: ['./side-panel.component.css']
 })

@@ -52,6 +52,6 @@ export class ExplorerControlPanelComponent implements OnInit {
   }
 
   download(): void {
-    this.fileService.downlaod();
+    this.fileService.download();
   }
 }

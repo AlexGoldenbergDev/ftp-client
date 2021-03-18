@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-sidepanel-button',
-  templateUrl: './sidepanel-button.component.html',
-  styleUrls: ['./sidepanel-button.component.css']
+  selector: 'app-side-panel-button',
+  templateUrl: './side-panel-button.component.html',
+  styleUrls: ['./side-panel-button.component.css']
 })
 export class SidePanelButtonComponent implements OnInit {
 

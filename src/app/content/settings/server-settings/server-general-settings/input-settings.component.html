@@ -12,7 +12,9 @@
     <td mat-cell *matCellDef="let element">
       <mat-form-field>
         <mat-label>{{element.label}}</mat-label>
-        <input  matInput [type]="element.inputType" [(ngModel)]="element.newValue">
+        <label>
+          <input  matInput [type]="element.inputType" [(ngModel)]="element.newValue">
+        </label>
       </mat-form-field>
     </td>
   </ng-container>
