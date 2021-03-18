@@ -20,6 +20,8 @@ export interface ExplorerFileRow {
 })
 export class ExplorerTableComponent implements OnInit, AfterViewInit {
 
+  @ViewChild(MatSort) sort!: MatSort;
+
   location: ExplorerNavNode = new ExplorerNavNode('/', '/', undefined);
 
   displayedColumns: string[] = ['selection', 'name', 'type', 'owner', 'size'];
@@ -27,12 +29,13 @@ export class ExplorerTableComponent implements OnInit, AfterViewInit {
 
   dataSource = new MatTableDataSource<ExplorerFileRow>();
 
-  // @ts-ignore
-  @ViewChild(MatSort) sort: MatSort;
+
 
   constructor(private fileService: FileService) {
-    this.fileService.filesListExplorerListChange$.subscribe(files => this.dataSource = new MatTableDataSource(files));
     this.fileService.fileExplorerLocationChange$.subscribe(location => this.location = location);
+    this.fileService.filesListExplorerListChange$.subscribe(files => {
+      this.dataSource = new MatTableDataSource(files);
+    });
   }
 
   ngOnInit(): void {}
@@ -64,13 +67,26 @@ export class ExplorerTableComponent implements OnInit, AfterViewInit {
     this.fileService.changeExplorerLocation(this.location);
   }
 
-  selectFile(element: ExplorerFileRow): void {
-    const selected = element.isSelected;
-    if (selected) {
-      this.fileService.selectFile(element);
-    }
-    else {
-      this.fileService.unselectFile(element);
-    }
+
+  isSelected(file: ExplorerFileRow): boolean {
+    return this.fileService.isSelected(file);
+  }
+
+
+  isAllSelected(): boolean {
+    return this.fileService.isAllSelected(this.dataSource);
+  }
+
+
+  toggle(file: ExplorerFileRow): void {
+    this.fileService.toggle(file);
+  }
+
+  masterToggle(): void {
+    this.fileService.masterToggle(this.dataSource);
+  }
+
+  hasValue(): boolean {
+    return this.fileService.hasValue();
   }
 }

@@ -1,6 +1,8 @@
 <mat-form-field id="explorer-filter">
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="file name" #input>
+  <label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="file name">
+  </label>
 </mat-form-field>
 <table mat-table matSort class="mat-elevation-z8" [dataSource]="dataSource">
 
@@ -8,13 +10,17 @@
   <ng-container matColumnDef="selection">
     <th mat-header-cell  *matHeaderCellDef>
       <section>
-          <mat-checkbox></mat-checkbox>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="hasValue() && isAllSelected()"
+                        [indeterminate]="hasValue() && !isAllSelected()"></mat-checkbox>
       </section>
     </th>
 
     <td mat-cell *matCellDef="let element">
       <section>
-        <mat-checkbox [checked]="element.isSelected" (change)="selectFile(element)"></mat-checkbox>
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? toggle(element) : null"
+                      [checked]="isSelected(element)"></mat-checkbox>
       </section>
     </td>
 

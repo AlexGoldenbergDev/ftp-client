@@ -16,8 +16,7 @@
 
     <mat-grid-tile [colspan]='1' [rowspan]='40'>
       <mat-list role="list" id="upload-files-list">
-     <app-func-side-panel-file-ticket #tickets *ngFor="let file of files" [file]="file"></app-func-side-panel-file-ticket>
-      <!--  <mat-list-item *ngFor="let name of fileNames" role="listitem">{{name}}</mat-list-item>-->
+     <app-func-side-panel-file-ticket #ticket *ngFor="let file of files" [file]="file" (created)="addFile(ticket)" ></app-func-side-panel-file-ticket>
       </mat-list>
     </mat-grid-tile>
   </mat-grid-list>

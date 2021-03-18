@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FileService} from '../../file.service';
 import {HttpEvent, HttpEventType} from '@angular/common/http';
 
@@ -14,14 +14,22 @@ export class FuncSidePanelFileTicketComponent implements OnInit {
   type = 'file';
 
   @Input()
+  index!: number;
+
+  @Input()
   file!: File;
+
+  @Output()
+  created = new EventEmitter();
 
   value = 0;
   icon = 'description';
 
   constructor(private fileService: FileService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.created.emit();
+  }
 
   upload(): void {
     this.fileService.upload(this.file).subscribe((event: HttpEvent<any>) => {

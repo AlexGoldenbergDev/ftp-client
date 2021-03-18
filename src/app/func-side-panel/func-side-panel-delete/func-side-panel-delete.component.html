@@ -1,4 +1,5 @@
 <mat-grid-list  id="func-side-panel-delete"  cols="1" rowHeight="2vh" style="width: 100%">
+
   <mat-grid-tile [colspan]='1' [rowspan]='2'>
     <button mat-button (click)="delete()">
       Confirm Deletion
@@ -8,7 +9,7 @@
 
   <mat-grid-tile [colspan]='1' [rowspan]='42'>
     <mat-list role="list" id="delete-files-list">
-      <mat-list-item *ngFor="let fileRow of filesToDelete" role="listitem">{{fileRow.name}}</mat-list-item>
+      <mat-list-item *ngFor="let fileRow of filesToDelete.selected" role="listitem">{{fileRow.name}}</mat-list-item>
     </mat-list>
   </mat-grid-tile>
 </mat-grid-list>

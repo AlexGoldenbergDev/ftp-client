@@ -5,6 +5,8 @@ import {HttpClient, HttpEvent, HttpEventType, HttpParams} from '@angular/common/
 import {ExplorerFileRow} from './content/explorer/explorer-table/explorer-table.component';
 
 import {LocalStorageService} from './local-storage.service';
+import {SelectionModel} from '@angular/cdk/collections';
+import {MatTableDataSource} from '@angular/material/table';
 
 interface FileTypeMapping {
   type: string;
@@ -16,7 +18,7 @@ interface FileTypeMapping {
 })
 export class FileService {
   private locationPath: string;
-  private selectedFiles: ExplorerFileRow[] = [];
+  selection = new SelectionModel<ExplorerFileRow>(true, []);
 
   private address: string;
   private port: string;
@@ -59,7 +61,7 @@ export class FileService {
   private fileExplorerLocation = new Subject<ExplorerNavNode>();
   private fileExplorerLocationArray = new Subject<string[]>();
   private filesListExplorerList = new Subject<ExplorerFileRow[]>();
-  private selectedFilesListExplorerList = new Subject<ExplorerFileRow[]>();
+  private selectedFilesListExplorerList = new Subject<SelectionModel<ExplorerFileRow>>();
 
   fileExplorerLocationChange$ = this.fileExplorerLocation.asObservable();
   fileExplorerLocationArrayChange$ = this.fileExplorerLocationArray.asObservable();
@@ -86,7 +88,7 @@ export class FileService {
         node = node.child;
       }
       this.fileExplorerLocationArray.next(names);
-      this.selectedFiles = [];
+      this.clearSelection();
       this.triggerSelectedFilesChange();
     });
   }
@@ -99,7 +101,7 @@ export class FileService {
   }
 
   private triggerSelectedFilesChange(): void {
-    this.selectedFilesListExplorerList.next(this.selectedFiles);
+    this.selectedFilesListExplorerList.next(this.selection);
   }
 
   getIconName(fileType: string): string {
@@ -125,7 +127,8 @@ export class FileService {
 
     const observable = this.http.post<ExplorerFileRow[]>( this.getServerAddress() + 'upload', formData, {
       observe: 'events',
-      reportProgress: true
+      reportProgress: true,
+      withCredentials: true
     });
 
     observable.subscribe((event: HttpEvent<ExplorerFileRow[]>) => {
@@ -133,7 +136,7 @@ export class FileService {
           // @ts-ignore
           const body: ExplorerFileRow[] = event.body;
           this.filesListExplorerList.next(body);
-          this.selectedFiles = [];
+          this.clearSelection();
           this.triggerSelectedFilesChange();
         }
     });
@@ -143,9 +146,9 @@ export class FileService {
 
   createFolder(name: string): void {
     const params = {location: this.locationPath, name};
-    this.http.put<ExplorerFileRow[]>( this.getServerAddress() + 'folder', params).subscribe(files => {
+    this.http.put<ExplorerFileRow[]>( this.getServerAddress() + 'folder', params, {withCredentials: true}).subscribe(files => {
       this.filesListExplorerList.next(files);
-      this.selectedFiles = [];
+      this.clearSelection();
       this.triggerSelectedFilesChange();
     });
   }
@@ -154,28 +157,64 @@ export class FileService {
     const params = new HttpParams()
       .append('location', this.locationPath)
       .append('name', name);
-    this.http.delete<ExplorerFileRow[]>( this.getServerAddress() + 'delete', {params}).subscribe(files => {
+    this.http.delete<ExplorerFileRow[]>( this.getServerAddress() + 'delete', {params, withCredentials: true}).subscribe(files => {
       this.filesListExplorerList.next(files);
-      this.selectedFiles = [];
+      this.clearSelection();
       this.triggerSelectedFilesChange();
     });
+  }
+
+  downlaod(): void {
+    this.selection.selected.forEach(file => {
+      const params = new HttpParams()
+        .append('location', this.locationPath)
+        .append('name', file.name);
+      this.http.get<string>( this.getServerAddress() + 'download', {params, withCredentials: true}).subscribe(link => window.open(link));
+    });
+
   }
 
   getServerAddress(): string {
     return 'http://' + this.address + ':' + this.port + '/explorer/';
   }
 
-  selectFile(element: ExplorerFileRow): void {
-    this.selectedFiles.push(element);
+
+
+  isSelected(file: ExplorerFileRow): boolean {
+    return this.selection.isSelected(file);
+  }
+
+
+  isAllSelected(dataSource: MatTableDataSource<ExplorerFileRow>): boolean {
+    const numSelected = this.selection.selected.length;
+    const numRows = dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+
+  toggle(file: ExplorerFileRow): void {
+    this.selection.toggle(file);
     this.triggerSelectedFilesChange();
   }
 
-  unselectFile(element: ExplorerFileRow): void {
-    const index = this.selectedFiles.indexOf(element);
-    if (index > -1) {
-      this.selectedFiles.splice(index, 1);
-      this.triggerSelectedFilesChange();
-    }
+  masterToggle(dataSource: MatTableDataSource<ExplorerFileRow>): void {
+    this.isAllSelected(dataSource) ?
+      this.clearSelection() :
+      dataSource.data.forEach(row => this.selection.select(row));
+    this.triggerSelectedFilesChange();
+  }
+
+  hasValue(): boolean {
+    return this.selection.hasValue();
+  }
+
+  clearSelection(): void {
+    this.selection.clear();
+  }
+
+  select(row: ExplorerFileRow): void {
+    this.selection.select(row);
+    this.triggerSelectedFilesChange();
   }
 }
 

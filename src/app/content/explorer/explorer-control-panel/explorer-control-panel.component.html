@@ -1,7 +1,7 @@
 <mat-toolbar>
   <app-explorer-control-panel-button [text]="buttons[0].text" [icon]="buttons[0].icon" (click)="toggleCreateFolder()"></app-explorer-control-panel-button>
   <app-explorer-control-panel-button [text]="buttons[1].text" [icon]="buttons[1].icon" (click)="toggleUpload()"></app-explorer-control-panel-button>
-  <app-explorer-control-panel-button [text]="buttons[2].text" [icon]="buttons[2].icon" ></app-explorer-control-panel-button>
+  <app-explorer-control-panel-button [text]="buttons[2].text" [icon]="buttons[2].icon" (click)="download()"></app-explorer-control-panel-button>
   <app-explorer-control-panel-button [text]="buttons[3].text" [icon]="buttons[3].icon" (click)="toggleDelete()"></app-explorer-control-panel-button>
 
 </mat-toolbar>

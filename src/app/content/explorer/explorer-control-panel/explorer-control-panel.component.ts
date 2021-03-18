@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {IconButtonInfo} from '../../../icon-button.info';
 import {ExplorerUiStateService} from '../../../explorer-ui-state.service';
 import {FuncSidePanelMode} from '../../../func-side-panel/FuncSidePanelMode';
+import {FileService} from '../../../file.service';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class ExplorerControlPanelComponent implements OnInit {
 
   private funcSidePanelState = false;
 
-  constructor(private uiService: ExplorerUiStateService) {
+  constructor(private uiService: ExplorerUiStateService, private fileService: FileService) {
     this.uiService.funcSidePanelToggleStateChange$.subscribe(state => this.funcSidePanelState = state);
   }
 
@@ -50,4 +51,7 @@ export class ExplorerControlPanelComponent implements OnInit {
     this.uiService.changeFuncSidePanelMode(FuncSidePanelMode.Delete, !this.funcSidePanelState);
   }
 
+  download(): void {
+    this.fileService.downlaod();
+  }
 }
