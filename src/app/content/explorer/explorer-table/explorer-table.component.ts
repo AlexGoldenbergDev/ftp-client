@@ -27,17 +27,14 @@ export class ExplorerTableComponent implements OnInit {
   displayedFooterColumns: string[] = ['name', 'size'];
   measures: string[] = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
 
-  dataSource = new MatTableDataSource<ExplorerFileRow>();
-  sortedDataSource = new MatTableDataSource<ExplorerFileRow>();
-
   sort!: Sort;
+  sortedDataSource = new MatTableDataSource<ExplorerFileRow>();
   private initialFilesArray: ExplorerFileRow[] = [];
 
   constructor(private fileService: FileService) {
     this.fileService.fileExplorerLocationChange$.subscribe(location => this.location = location);
     this.fileService.filesListExplorerListChange$.subscribe(files => {
       this.initialFilesArray = files;
-      this.dataSource.data = files.slice();
       this.triggerSorting();
     });
   }
@@ -50,11 +47,11 @@ export class ExplorerTableComponent implements OnInit {
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.sortedDataSource.filter = filterValue.trim().toLowerCase();
   }
 
   getTotalSize(): string {
-    const size = this.dataSource.data.map(file => file.size).reduce((acc, value) => acc + value, 0);
+    const size = this.sortedDataSource.data.map(file => file.size).reduce((acc, value) => acc + value, 0);
     return this.measureUp(this.measures, 0, size);
   }
 
@@ -74,7 +71,7 @@ export class ExplorerTableComponent implements OnInit {
 
 
   isAllSelected(): boolean {
-    return this.fileService.isAllSelected(this.dataSource);
+    return this.fileService.isAllSelected(this.sortedDataSource);
   }
 
 
@@ -83,7 +80,7 @@ export class ExplorerTableComponent implements OnInit {
   }
 
   masterToggle(): void {
-    this.fileService.masterToggle(this.dataSource);
+    this.fileService.masterToggle(this.sortedDataSource);
   }
 
   hasValue(): boolean {
@@ -100,7 +97,7 @@ export class ExplorerTableComponent implements OnInit {
       this.sortedDataSource.data = this.initialFilesArray.slice();
     }
     else {
-      this.sortedDataSource = new MatTableDataSource(this.dataSource.data.sort((a: ExplorerFileRow, b: ExplorerFileRow) => {
+      this.sortedDataSource = new MatTableDataSource(this.sortedDataSource.data.sort((a: ExplorerFileRow, b: ExplorerFileRow) => {
           const isAsc = this.sort.direction === 'asc';
           switch (this.sort.active) {
             case 'name' : return this.compare(a.name, b.name,   isAsc);
