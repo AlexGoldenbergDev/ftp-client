@@ -48,4 +48,7 @@ export class SidePanelComponent implements OnInit {
     this.uiStateService.changeSidePanelToggleState(false);
   }
 
+  toggleSidePanel(): void {
+    this.uiStateService.changeSidePanelToggleState(!this.sidePanelState);
+  }
 }

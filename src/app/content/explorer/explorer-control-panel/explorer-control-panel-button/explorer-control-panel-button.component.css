@@ -1,3 +1,45 @@
 .control-panel-text-button mat-icon {
-  padding-bottom: 10%;
+  padding-bottom: 5%;
+}
+
+p {
+  display: none;
+}
+
+@media (max-width: 300px)
+{
+
+
+  mat-icon
+  {
+    font-size: 6vw;
+  }
+
+}
+
+@media (max-width: 485px) and  (min-width: 301px)
+{
+
+
+  mat-icon
+  {
+    font-size: 8vw;
+  }
+
+}
+
+@media (max-width: 768px) and  (min-width: 486px)
+{
+  p{
+    display: inline;
+  }
+
+}
+
+@media (min-width: 769px)
+{
+  p{
+    display: inline;
+  }
+
 }

@@ -1,3 +1,6 @@
-  <mat-nav-list>
+<button mat-button (click)="toggleSidePanel()">
+  <mat-icon>close</mat-icon>
+</button>
+<mat-nav-list>
     <app-side-panel-button *ngFor="let button of buttons" [text]="button.text" [iconName]='button.icon' [routerLink]="button.routerLink"></app-side-panel-button>
   </mat-nav-list>

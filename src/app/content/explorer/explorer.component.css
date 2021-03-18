@@ -14,3 +14,27 @@ app-explorer-table {
   overflow: auto;
 }
 
+
+@media (max-width: 450px) {
+  .mat-drawer {
+    width:100%
+  }
+}
+
+@media (min-width: 451px) and (max-width: 780px){
+  .mat-drawer {
+    width:40%
+  }
+}
+
+@media (min-width: 781px) and (max-width: 900px){
+  .mat-drawer {
+    width:30%
+  }
+}
+
+@media (min-width: 901px){
+  .mat-drawer {
+    width:20%
+  }
+}
