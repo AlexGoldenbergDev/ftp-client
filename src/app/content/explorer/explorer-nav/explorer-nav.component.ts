@@ -14,6 +14,7 @@ export class ExplorerNavComponent implements OnInit {
 
   constructor(private fileService: FileService) {
     this.fileService.fileExplorerLocationArrayChange$.subscribe(location => this.locationArray = location);
+    this.fileService.fileExplorerLocationChange$.subscribe(location => this.location = location);
     this.fileService.changeExplorerLocation(this.location);
   }
 
@@ -32,5 +33,19 @@ export class ExplorerNavComponent implements OnInit {
     }
     node.child = undefined;
     this.fileService.changeExplorerLocation(this.location);
+  }
+
+  changeLocationUp(): void {
+    let node = this.location;
+    if (node.child) {
+      let location = '';
+      while (node.child?.child) {
+        location = location.concat(node.link);
+        node = node.child;
+      }
+      node.child = undefined;
+      this.fileService.changeExplorerLocation(this.location);
+    }
+
   }
 }

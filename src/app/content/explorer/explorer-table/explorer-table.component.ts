@@ -1,6 +1,6 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { FileService } from '../../../file.service';
-import {MatSort} from '@angular/material/sort';
+import {Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {ExplorerNavNode} from '../explorer-nav/explorer-nav.node';
 
@@ -18,32 +18,31 @@ export interface ExplorerFileRow {
   templateUrl: './explorer-table.component.html',
   styleUrls: ['./explorer-table.component.css']
 })
-export class ExplorerTableComponent implements OnInit, AfterViewInit {
+export class ExplorerTableComponent implements OnInit {
 
-  @ViewChild(MatSort) sort!: MatSort;
 
   location: ExplorerNavNode = new ExplorerNavNode('/', '/', undefined);
 
-  displayedColumns: string[] = ['selection', 'name', 'type', 'owner', 'size'];
+  displayedColumns: string[] = ['selection', 'name', 'type', 'size'];
   displayedFooterColumns: string[] = ['name', 'size'];
+  measures: string[] = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
 
   dataSource = new MatTableDataSource<ExplorerFileRow>();
+  sortedDataSource = new MatTableDataSource<ExplorerFileRow>();
 
-
+  sort!: Sort;
+  private initialFilesArray: ExplorerFileRow[] = [];
 
   constructor(private fileService: FileService) {
     this.fileService.fileExplorerLocationChange$.subscribe(location => this.location = location);
     this.fileService.filesListExplorerListChange$.subscribe(files => {
-      this.dataSource = new MatTableDataSource(files);
+      this.initialFilesArray = files;
+      this.dataSource.data = files.slice();
+      this.triggerSorting();
     });
   }
 
   ngOnInit(): void {}
-
-
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-  }
 
   getIconName(fileType: string): string {
     return this.fileService.getIconName(fileType);
@@ -54,8 +53,9 @@ export class ExplorerTableComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  getTotalSize(): number {
-    return this.dataSource.data.map(file => file.size).reduce((acc, value) => acc + value, 0);
+  getTotalSize(): string {
+    const size = this.dataSource.data.map(file => file.size).reduce((acc, value) => acc + value, 0);
+    return this.measureUp(this.measures, 0, size);
   }
 
   changeLocationDown(file: ExplorerFileRow): void {
@@ -89,4 +89,52 @@ export class ExplorerTableComponent implements OnInit, AfterViewInit {
   hasValue(): boolean {
     return this.fileService.hasValue();
   }
+
+  sortData(sort: Sort): void {
+    this.sort = sort;
+    this.triggerSorting();
+  }
+
+  private triggerSorting(): void {
+    if (!this.sort || !this.sort.direction) {
+      this.sortedDataSource.data = this.initialFilesArray.slice();
+    }
+    else {
+      this.sortedDataSource = new MatTableDataSource(this.dataSource.data.sort((a: ExplorerFileRow, b: ExplorerFileRow) => {
+          const isAsc = this.sort.direction === 'asc';
+          switch (this.sort.active) {
+            case 'name' : return this.compare(a.name, b.name,   isAsc);
+            case 'type' : return this.compare(a.type, b.type,   isAsc);
+            case 'size' : return this.compare(a.size, b.size,   isAsc);
+            default: return 0;
+          }
+        })
+      );
+    }
+  }
+
+  compare(a: string | number, b: string | number, isAsc: boolean): number {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  getSize(size: number): string {
+    return this.measureUp(this.measures, 0, size);
+  }
+
+  measureUp(measures: string[], index: number, size: number): string {
+    let r;
+
+    if (!size) {
+      r = '';
+    }
+    else if (size > 999 && index !== measures.length - 1) {
+      r = this.measureUp(measures, index + 1, size / 1000);
+    }
+    else {
+      r = size.toFixed(1) + ' ' + measures[index];
+    }
+
+    return r;
+  }
+
 }
