@@ -7,6 +7,11 @@ import { SettingsComponent } from './content/settings/settings.component';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: '/dashboard',
+    pathMatch: 'full'
+  },
+  {
     path: 'dashboard',
     component: DashboardComponent
   },
